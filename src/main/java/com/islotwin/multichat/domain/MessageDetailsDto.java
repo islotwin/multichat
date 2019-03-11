@@ -15,6 +15,8 @@ public class MessageDetailsDto extends MessageDto {
 
     private String username;
 
+    private String from;
+
     private String translatedText;
 
     private String originLanguage;

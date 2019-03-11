@@ -19,7 +19,7 @@ import java.util.Optional;
 public class SessionListener {
 
     private final SessionRepository repository;
-    private final String prefix = "/topic/chat";
+    private final String prefix = "/chat";
 
     @EventListener
     @Transactional
@@ -73,7 +73,9 @@ public class SessionListener {
     }
 
     private String getChatRoom(final SimpMessageHeaderAccessor headers) {
-        return headers.getDestination().replaceFirst(prefix + "/", "");
+//        return headers.getDestination().replaceFirst(prefix + "/", "");
+
+        return headers.getDestination().replaceAll("^.*" + prefix + "/(.*)", "$1");
     }
 
 }

@@ -1,5 +1,6 @@
 package com.islotwin.multichat.web;
 
+import com.google.cloud.translate.Language;
 import com.islotwin.multichat.domain.LanguageDto;
 import com.islotwin.multichat.domain.MessageDetailsDto;
 import com.islotwin.multichat.domain.UsernameDto;
@@ -11,13 +12,10 @@ import com.islotwin.multichat.service.TranslateService;
 import lombok.RequiredArgsConstructor;
 import lombok.val;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Collections;
-import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -28,16 +26,9 @@ public class SessionController {
     private final MessageRepository messageRepository;
     private final TranslateService translateService;
 
-/*
     @GetMapping("/languages")
     public List<Language> getLanguages() {
         return translateService.getSupportedLanguages();
-    }
-*/
-
-    @GetMapping("/languages")
-    public List<String> getLanguages() {
-        return Collections.singletonList("Get api key.");
     }
 
     @GetMapping("/users/{session}/chats/{name}")
@@ -45,19 +36,18 @@ public class SessionController {
     public Page<MessageDetailsDto> getMessages(@PathVariable("name") final String name, @PathVariable("session") final String sessionId, final Pageable pageable) {
         val session = sessionRepository.findById(sessionId)
                 .orElseThrow(() -> new RuntimeException("Session " + sessionId + " not found."));
-/*
-        val result = messageRepository.findAllByChatRoom(name, pageable).map(m -> {
-            val translation = translateService.translate(m, session);
-            val username = sessionRepository.findById(m.getSessionId())
-                    .map(SessionEntity::getUsername)
-                    .orElse("");
-            return new MessageDetailsDto(m.getText(), m.getTimestamp())
-                    .setUsername(username)
-                    .setTranslatedText(translation)
-                    .setOriginLanguage(m.getLanguage());
-        });
-*/
-        return new PageImpl<>(Collections.singletonList(new MessageDetailsDto("text", new Date())));
+        return messageRepository.findAllByChatRoom(name, pageable)
+                .map(m -> {
+                    val translation = translateService.translate(m, session);
+                    val username = sessionRepository.findById(m.getSessionId())
+                            .map(SessionEntity::getUsername)
+                            .orElse("");
+                    return new MessageDetailsDto(m.getText(), m.getTimestamp())
+                            .setUsername(username)
+                            .setTranslatedText(translation)
+                            .setOriginLanguage(m.getLanguage())
+                            .setFrom(m.getSessionId());
+                });
     }
 
     @PutMapping("/users/{session}/chats/{name}")

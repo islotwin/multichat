@@ -9,6 +9,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Set;
 
 @Data
@@ -34,6 +35,6 @@ public class MessageEntity {
 
     private String language;
 
-    private Set<TranslatedMessage> translatedMessages;
+    private Set<TranslatedMessage> translatedMessages = new HashSet<>();
 
 }

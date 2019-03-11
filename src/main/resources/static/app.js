@@ -13,12 +13,13 @@ function setConnected(connected) {
 }
 
 function connect() {
-    var socket = new SockJS('/chatRoom');
+    var socket = new SockJS('/chat');
     stompClient = Stomp.over(socket);
     stompClient.connect({}, function (frame) {
         setConnected(true);
         console.log('Connected: ' + frame);
-        stompClient.subscribe('/topic/chat/hehe', function (greeting) {
+        var sessionId = /\/([^\/]+)\/websocket/.exec(socket._transport.url)[1];
+        stompClient.subscribe('/user/' + sessionId + '/chat/hehe', function (greeting) {
             showGreeting(JSON.parse(greeting.body).content);
         });
     });
@@ -33,7 +34,7 @@ function disconnect() {
 }
 
 function sendName() {
-    stompClient.send("/app/chat/hehe", {}, JSON.stringify({'name': $("#name").val()}));
+    stompClient.send("/app/chat/hehe", {}, JSON.stringify({'text': 'widzimy się o 8', 'timestamp': 1551955931}));
 }
 
 function showGreeting(message) {
