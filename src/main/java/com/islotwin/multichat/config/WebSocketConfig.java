@@ -1,14 +1,14 @@
 package com.islotwin.multichat.config;
 
-import com.google.cloud.translate.Translate;
-import com.google.cloud.translate.TranslateOptions;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry;
 import org.springframework.messaging.simp.broker.SubscriptionRegistry;
 import org.springframework.messaging.simp.config.MessageBrokerRegistry;
-import org.springframework.web.socket.config.annotation.*;
+import org.springframework.web.socket.config.annotation.EnableWebSocketMessageBroker;
+import org.springframework.web.socket.config.annotation.StompEndpointRegistry;
+import org.springframework.web.socket.config.annotation.WebSocketMessageBrokerConfigurer;
 import org.springframework.web.socket.server.support.HttpSessionHandshakeInterceptor;
 
 @Configuration
@@ -25,7 +25,9 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
     @Override
     public void registerStompEndpoints(StompEndpointRegistry registry) {
         registry.addEndpoint("/chat")
+                .setAllowedOrigins("*")
                 .withSockJS()
+                .setClientLibraryUrl("/webjars/sockjs-client/1.0.2/sockjs.min.js")
                 .setInterceptors(new HttpSessionHandshakeInterceptor());
     }
 
@@ -34,8 +36,4 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
         return new DefaultSubscriptionRegistry();
     }
 
-    @Bean
-    public Translate translate() {
-        return TranslateOptions.getDefaultInstance().getService();
-    }
 }

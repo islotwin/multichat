@@ -16,7 +16,7 @@ import java.util.Optional;
 @Service
 @RequiredArgsConstructor
 @Slf4j
-public class SessionListener {
+public class WebSocketListener {
 
     private final SessionRepository repository;
     private final String prefix = "/chat";
