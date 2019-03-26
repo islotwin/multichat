@@ -1,12 +1,14 @@
 language: java
 jdk: oraclejdk8
 
+after_success:
+  - mv ./target/multichat-0.0.1-SNAPSHOT.jar .
+  - rm -r ./src
+  - rm -r ./target
+  - rm ./pom.xml
+
 deploy:
   provider: azure_web_apps
   on: master
   verbose: true
-
-  #  - provider: script
-  #    script: (git fetch --unshallow || git fetch) && git push https://$AZURE_WA_USERNAME:$AZURE_WA_PASSWORD@$AZURE_WA_SITE.scm.azurewebsites.net:443/$AZURE_WA_SITE.git HEAD:refs/heads/master
-  #    on: master
-  #    verbose: true
+  skip_cleanup: true
