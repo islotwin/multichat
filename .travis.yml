@@ -3,8 +3,9 @@ jdk: oraclejdk8
 
 deploy:
   provider: azure_web_apps
-  on: master
+  on: production
   verbose: true
+  skip_cleanup: true
 
   #  - provider: script
   #    script: (git fetch --unshallow || git fetch) && git push https://$AZURE_WA_USERNAME:$AZURE_WA_PASSWORD@$AZURE_WA_SITE.scm.azurewebsites.net:443/$AZURE_WA_SITE.git HEAD:refs/heads/master
