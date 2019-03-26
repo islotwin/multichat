@@ -17,4 +17,3 @@ after_success:
   - rm -r ./src
   - rm -r ./target
   - rm ./pom.xml
-
