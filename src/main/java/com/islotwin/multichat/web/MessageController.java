@@ -2,6 +2,8 @@ package com.islotwin.multichat.web;
 
 import com.islotwin.multichat.domain.MessageDetailsDto;
 import com.islotwin.multichat.domain.MessageDto;
+import com.islotwin.multichat.model.activity.ActivityEntity;
+import com.islotwin.multichat.model.activity.ActivityRepository;
 import com.islotwin.multichat.model.message.MessageEntity;
 import com.islotwin.multichat.model.message.MessageRepository;
 import com.islotwin.multichat.model.session.SessionEntity;
@@ -24,20 +26,23 @@ import java.util.stream.Stream;
 
 @RestController
 @Slf4j
-public class MessagesController {
+public class MessageController {
 
     private final SessionRepository sessionRepository;
     private final MessageRepository messageRepository;
+    private final ActivityRepository activityRepository;
     private final SimpMessagingTemplate messagingTemplate;
     private final String prefix;
     private final TranslateService translateService;
 
-    public MessagesController(final SessionRepository sessionRepository, final MessageRepository messageRepository,
-                              final SimpMessagingTemplate messagingTemplate, final TranslateService translateService) {
+    public MessageController(final SessionRepository sessionRepository, final MessageRepository messageRepository,
+                             final ActivityRepository activityRepository, final SimpMessagingTemplate messagingTemplate,
+                             final TranslateService translateService) {
         this.sessionRepository = sessionRepository;
         this.messageRepository = messageRepository;
+        this.activityRepository = activityRepository;
         this.messagingTemplate = messagingTemplate;
-        prefix = "/chat";
+        this.prefix = "/chat";
         this.translateService = translateService;
     }
 
@@ -55,6 +60,12 @@ public class MessagesController {
                 .setTimestamp(message.getTimestamp())
                 .setText(message.getText());
         messageRepository.save(entity);
+
+        val activity = activityRepository
+                .findByName(chatRoom)
+                .orElse(new ActivityEntity(chatRoom))
+                .setTimestamp(message.getTimestamp());
+        activityRepository.save(activity);
 
         sendTranslatedMessages(chatRoom, entity, session);
     }

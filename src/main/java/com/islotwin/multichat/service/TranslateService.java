@@ -2,7 +2,7 @@ package com.islotwin.multichat.service;
 
 import com.google.cloud.translate.Language;
 import com.google.cloud.translate.Translate;
-import com.islotwin.multichat.model.message.ChatRoom;
+import com.islotwin.multichat.model.session.ChatRoom;
 import com.islotwin.multichat.model.message.MessageEntity;
 import com.islotwin.multichat.model.message.MessageRepository;
 import com.islotwin.multichat.model.message.TranslatedMessage;

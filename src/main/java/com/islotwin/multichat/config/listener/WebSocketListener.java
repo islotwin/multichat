@@ -1,4 +1,4 @@
-package com.islotwin.multichat.config;
+package com.islotwin.multichat.config.listener;
 
 import com.islotwin.multichat.model.session.SessionEntity;
 import com.islotwin.multichat.model.session.SessionRepository;

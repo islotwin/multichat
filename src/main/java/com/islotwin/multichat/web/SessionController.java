@@ -4,7 +4,7 @@ import com.google.cloud.translate.Language;
 import com.islotwin.multichat.domain.LanguageDto;
 import com.islotwin.multichat.domain.MessageDetailsDto;
 import com.islotwin.multichat.domain.UsernameDto;
-import com.islotwin.multichat.model.message.ChatRoom;
+import com.islotwin.multichat.model.session.ChatRoom;
 import com.islotwin.multichat.model.message.MessageRepository;
 import com.islotwin.multichat.model.session.SessionEntity;
 import com.islotwin.multichat.model.session.SessionRepository;

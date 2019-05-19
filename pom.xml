@@ -16,6 +16,8 @@
 
 	<properties>
 		<java.version>1.8</java.version>
+		<jackson.version>2.9.8</jackson.version>
+		<azure.version>1.5.4</azure.version>
 	</properties>
 
 	<dependencies>
@@ -40,6 +42,12 @@
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
 			<optional>true</optional>
+		</dependency>
+
+		<dependency>
+			<groupId>com.fasterxml.jackson.datatype</groupId>
+			<artifactId>jackson-datatype-jsr310</artifactId>
+			<version>${jackson.version}</version>
 		</dependency>
 
 		<!-- google translateText -->
@@ -97,12 +105,12 @@
 			<plugin>
 				<groupId>com.microsoft.azure</groupId>
 				<artifactId>azure-webapp-maven-plugin</artifactId>
-				<version>1.5.4</version>
+				<version>${azure.version}</version>
 				<configuration>
 					<authentication>
 						<serverId>azure-auth</serverId>
 					</authentication>
-					<javaVersion>1.8</javaVersion>
+					<javaVersion>${java.version}</javaVersion>
 					<deploymentType>ftp</deploymentType>
 					<stopAppDuringDeployment>true</stopAppDuringDeployment>
 

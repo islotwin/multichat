@@ -1,15 +1,17 @@
 package com.islotwin.multichat.domain;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 @Data
 @Accessors(chain = true)
+@EqualsAndHashCode(callSuper = true)
 public class MessageDetailsDto extends MessageDto {
 
-    public MessageDetailsDto(final String text, final Date timestamp) {
+    public MessageDetailsDto(final String text, final LocalDateTime timestamp) {
         super(text, timestamp);
     }
 

@@ -1,10 +1,9 @@
-package com.islotwin.multichat.model.message;
+package com.islotwin.multichat.model.session;
 
 import lombok.*;
 import lombok.experimental.Accessors;
 import org.springframework.data.annotation.Id;
 
-//@Data
 @Accessors(chain = true)
 @RequiredArgsConstructor
 @Getter

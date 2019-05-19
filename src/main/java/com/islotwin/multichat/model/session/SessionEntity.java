@@ -1,6 +1,5 @@
 package com.islotwin.multichat.model.session;
 
-import com.islotwin.multichat.model.message.ChatRoom;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;

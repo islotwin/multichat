@@ -8,6 +8,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -31,7 +32,7 @@ public class MessageEntity {
     private String text;
 
     @NotNull
-    private Date timestamp;
+    private LocalDateTime timestamp;
 
     private String language;
 
