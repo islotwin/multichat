@@ -16,6 +16,9 @@
 
 	<properties>
 		<java.version>1.8</java.version>
+		<resource.group>paid-resources</resource.group>
+		<app.name>multichat-backend</app.name>
+		<region>westeurope</region>
 	</properties>
 
 	<dependencies>
@@ -115,9 +118,9 @@
 					</appSettings>
 
 					<!-- Web App information -->
-					<resourceGroup>islotwin-wpam</resourceGroup>
-					<appName>multichat-wpam</appName>
-					<region>westeurope</region>
+					<resourceGroup>${resource.group}</resourceGroup>
+					<appName>${app.name}</appName>
+					<region>${region}</region>
 
 					<resources>
 						<resource>
