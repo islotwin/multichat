@@ -102,45 +102,31 @@
 				<artifactId>azure-webapp-maven-plugin</artifactId>
 				<version>1.5.4</version>
 				<configuration>
-					<authentication>
-						<serverId>azure-auth</serverId>
-					</authentication>
-					<javaVersion>1.8</javaVersion>
-					<deploymentType>ftp</deploymentType>
-					<stopAppDuringDeployment>true</stopAppDuringDeployment>
+					<!-- Specify v2 schema -->
+					<schemaVersion>v2</schemaVersion>
 
-					<!-- configure app to run on port 80, required by App Service -->
-					<appSettings>
-						<property>
-							<name>JAVA_OPTS</name>
-							<value>-Dserver.port=80</value>
-						</property>
-					</appSettings>
-
-					<!-- Web App information -->
+					<!-- App information -->
 					<resourceGroup>${resource.group}</resourceGroup>
 					<appName>${app.name}</appName>
 					<region>${region}</region>
 
-					<resources>
-						<resource>
-							<directory>${project.basedir}/target</directory>
-							<targetPath>/</targetPath>
-							<includes>
-								<include>*.jar</include>
-							</includes>
-						</resource>
-						<resource>
-							<directory>${project.basedir}</directory>
-							<targetPath>/</targetPath>
-							<includes>
-								<include>web.config</include>
-							</includes>
-						</resource>
-					</resources>
-
+					<!-- Java Runtime Stack for App on Linux-->
+					<runtime>
+						<os>linux</os>
+						<javaVersion>jre8</javaVersion>
+						<webContainer>tomcat 8.5</webContainer>
+					</runtime>
+					<deployment>
+						<resources>
+							<resource>
+								<directory>${project.basedir}/target</directory>
+								<includes>
+									<include>*.jar</include>
+								</includes>
+							</resource>
+						</resources>
+					</deployment>
 				</configuration>
-
 			</plugin>
 		</plugins>
 	</build>

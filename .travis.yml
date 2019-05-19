@@ -13,7 +13,7 @@ deploy:
   #    verbose: true
 
 after_success:
-  - mv ./target/multichat-0.0.1-SNAPSHOT.jar ./webapps/ROOT
+  - mv ./target/multichat-0.0.1-SNAPSHOT.jar .
   - rm -r ./src
   - rm -r ./target
   - rm ./pom.xml
