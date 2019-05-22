@@ -81,6 +81,7 @@ public class MessageController {
         val translation = translateService.translate(message, subscriber);
         val username = publisher.getUsername() != null && !publisher.getUsername().isEmpty() ? publisher.getUsername() : "";
         return new MessageDetailsDto(message.getText(), message.getTimestamp())
+                .setId(message.getId())
                 .setUsername(username)
                 .setOriginLanguage(message.getLanguage())
                 .setTranslatedText(translation)

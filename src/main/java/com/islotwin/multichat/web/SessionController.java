@@ -43,6 +43,7 @@ public class SessionController {
                             .map(SessionEntity::getUsername)
                             .orElse("");
                     return new MessageDetailsDto(m.getText(), m.getTimestamp())
+                            .setId(m.getId())
                             .setUsername(username)
                             .setTranslatedText(translation)
                             .setOriginLanguage(m.getLanguage())

@@ -20,7 +20,9 @@ function connect() {
         console.log('Connected: ' + frame);
         var sessionId = /\/([^\/]+)\/websocket/.exec(socket._transport.url)[1];
         stompClient.subscribe('/user/' + sessionId + '/chat/hehe', function (greeting) {
-            showGreeting(JSON.parse(greeting.body).content);
+            const body = JSON.parse(greeting.body)
+            console.log('body', body)
+            showGreeting(body.text);
         });
     });
 }

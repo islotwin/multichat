@@ -15,6 +15,8 @@ public class MessageDetailsDto extends MessageDto {
         super(text, timestamp);
     }
 
+    private String id;
+
     private String username;
 
     private String from;
