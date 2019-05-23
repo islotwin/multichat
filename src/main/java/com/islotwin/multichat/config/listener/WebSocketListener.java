@@ -23,14 +23,30 @@ public class WebSocketListener {
 
     @EventListener
     @Transactional
+    public void handleSessionConnect(SessionConnectEvent event) {
+        val headers = SimpMessageHeaderAccessor.wrap(event.getMessage());
+        val username = Optional.ofNullable(headers.getUser()).map(u -> u.getName()).orElse("");
+        val sessionId = headers.getSessionId();
+
+        log.info("New session: '{}' '{}' '{}' '{}'.", username, sessionId);
+        val session = Optional.ofNullable(sessionId)
+                .map(repository::findById)
+                .orElseThrow(() -> new IllegalStateException("Session id can't be null."))
+                .orElse(new SessionEntity()
+                        .setId(sessionId)
+                        .setUsername(username));
+        repository.save(session);
+    }
+
+    @EventListener
+    @Transactional
     public void handleSubscription(SessionSubscribeEvent event) {
         val headers = SimpMessageHeaderAccessor.wrap(event.getMessage());
         val username = Optional.ofNullable(headers.getUser()).map(u -> u.getName()).orElse("");
         val sessionId = headers.getSessionId();
-        val subscriptionId = headers.getSubscriptionId();
         val destination = getChatRoom(headers);
 
-        log.info("New subscription: '{}' '{}' '{}' '{}'.", username, sessionId, subscriptionId, destination);
+        log.info("New subscription: '{}' '{}' '{}' '{}'.", username, sessionId, destination);
         val session = Optional.ofNullable(sessionId)
                 .map(repository::findById)
                 .orElseThrow(() -> new IllegalStateException("Session id can't be null."))
