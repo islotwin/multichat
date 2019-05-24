@@ -25,4 +25,6 @@ public class MessageDetailsDto extends MessageDto {
 
     private String originLanguage;
 
+    private String color;
+
 }

@@ -80,12 +80,14 @@ public class MessageController {
     private MessageDetailsDto createMessage(final SessionEntity subscriber, final MessageEntity message, final SessionEntity publisher) {
         val translation = translateService.translate(message, subscriber);
         val username = publisher.getUsername() != null && !publisher.getUsername().isEmpty() ? publisher.getUsername() : "";
+        val color = publisher.getColor();
         return new MessageDetailsDto(message.getText(), message.getTimestamp())
                 .setId(message.getId())
                 .setUsername(username)
                 .setOriginLanguage(message.getLanguage())
                 .setTranslatedText(translation)
-                .setFrom(message.getSessionId());
+                .setFrom(message.getSessionId())
+                .setColor(color);
     }
 
     private Map<String, Object> createResponseHeaders(final String sessionId) {

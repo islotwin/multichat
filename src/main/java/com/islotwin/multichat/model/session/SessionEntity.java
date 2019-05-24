@@ -20,6 +20,8 @@ public class SessionEntity {
 
     private String username;
 
+    private String color;
+
     private Set<ChatRoom> chatRooms = new HashSet<>();
 
     public void addChatRoom(final String chatRoom) {

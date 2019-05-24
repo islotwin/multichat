@@ -10,5 +10,4 @@ public interface SessionRepository extends MongoRepository<SessionEntity, String
 
     @Query("{'chatRooms.name' : ?0}")
     Stream<SessionEntity> findAllByChatRooms(final String chatRoom);
-
 }

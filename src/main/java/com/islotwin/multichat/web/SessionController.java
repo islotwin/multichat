@@ -47,7 +47,8 @@ public class SessionController {
                             .setUsername(username)
                             .setTranslatedText(translation)
                             .setOriginLanguage(m.getLanguage())
-                            .setFrom(m.getSessionId());
+                            .setFrom(m.getSessionId())
+                            .setColor(session.getColor());
                 });
     }
 

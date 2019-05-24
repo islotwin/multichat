@@ -21,7 +21,8 @@ public class CheckActivityJob {
     private final ActivityRepository activityRepository;
     private final MessageRepository messageRepository;
 
-    public CheckActivityJob(@Value("${chat.expiration}") final Long chatExpiration, final ActivityRepository activityRepository, final MessageRepository messageRepository) {
+    public CheckActivityJob(@Value("${chat.expiration}") final Long chatExpiration, final ActivityRepository activityRepository,
+                            final MessageRepository messageRepository) {
         this.chatExpiration = chatExpiration;
         this.activityRepository = activityRepository;
         this.messageRepository = messageRepository;

@@ -2,6 +2,7 @@ package com.islotwin.multichat.config.listener;
 
 import com.islotwin.multichat.model.session.SessionEntity;
 import com.islotwin.multichat.model.session.SessionRepository;
+import com.islotwin.multichat.service.ColorService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import lombok.val;
@@ -20,6 +21,7 @@ public class WebSocketListener {
 
     private final SessionRepository repository;
     private final String prefix = "/chat";
+    private final ColorService colorService;
 
     @EventListener
     @Transactional
@@ -34,7 +36,8 @@ public class WebSocketListener {
                 .orElseThrow(() -> new IllegalStateException("Session id can't be null."))
                 .orElse(new SessionEntity()
                         .setId(sessionId)
-                        .setUsername(username));
+                        .setUsername(username))
+                        .setColor(colorService.generateColor());
         repository.save(session);
     }
 
