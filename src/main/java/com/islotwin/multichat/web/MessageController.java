@@ -87,7 +87,8 @@ public class MessageController {
                 .setOriginLanguage(message.getLanguage())
                 .setTranslatedText(translation)
                 .setFrom(message.getSessionId())
-                .setColor(color);
+                .setColor(color)
+                .setOut(message.getSessionId().equals(subscriber.getId()));
     }
 
     private Map<String, Object> createResponseHeaders(final String sessionId) {

@@ -27,4 +27,6 @@ public class MessageDetailsDto extends MessageDto {
 
     private String color;
 
+    private Boolean out = false;
+
 }
