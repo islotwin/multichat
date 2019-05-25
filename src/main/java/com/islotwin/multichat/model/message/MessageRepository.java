@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface MessageRepository extends MongoRepository<MessageEntity, String> {
 
-    Page<MessageEntity> findAllByChatRoom(final String chatRoom, final Pageable pageable);
+    Page<MessageEntity> findAllByChatRoomOrderByTimestampDesc(final String chatRoom, final Pageable pageable);
 
     List<MessageEntity> findAllByChatRoom(final String chatRoom);
 }

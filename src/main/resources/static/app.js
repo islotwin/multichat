@@ -36,7 +36,7 @@ function disconnect() {
 }
 
 function sendName() {
-    stompClient.send("/app/chat/hehe", {}, JSON.stringify({'text': 'widzimy się o 8', 'timestamp': 1551955931}));
+    stompClient.send("/app/chat/hehe", {}, JSON.stringify({'text': 'widzimy się o 11', 'timestamp': 4551955931}));
 }
 
 function showGreeting(message) {

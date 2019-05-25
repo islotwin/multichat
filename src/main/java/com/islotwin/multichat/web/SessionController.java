@@ -4,8 +4,8 @@ import com.google.cloud.translate.Language;
 import com.islotwin.multichat.domain.LanguageDto;
 import com.islotwin.multichat.domain.MessageDetailsDto;
 import com.islotwin.multichat.domain.UsernameDto;
-import com.islotwin.multichat.model.session.ChatRoom;
 import com.islotwin.multichat.model.message.MessageRepository;
+import com.islotwin.multichat.model.session.ChatRoom;
 import com.islotwin.multichat.model.session.SessionEntity;
 import com.islotwin.multichat.model.session.SessionRepository;
 import com.islotwin.multichat.service.TranslateService;
@@ -36,7 +36,7 @@ public class SessionController {
     public Page<MessageDetailsDto> getMessages(@PathVariable("name") final String name, @PathVariable("session") final String sessionId, final Pageable pageable) {
         val session = sessionRepository.findById(sessionId)
                 .orElseThrow(() -> new RuntimeException("Session " + sessionId + " not found."));
-        return messageRepository.findAllByChatRoom(name, pageable)
+        return messageRepository.findAllByChatRoomOrderByTimestampDesc(name, pageable)
                 .map(m -> {
                     val translation = translateService.translate(m, session);
                     val publisher = sessionRepository.findById(m.getSessionId());
