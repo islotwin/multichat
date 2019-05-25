@@ -36,8 +36,8 @@ public class WebSocketListener {
                 .orElseThrow(() -> new IllegalStateException("Session id can't be null."))
                 .orElse(new SessionEntity()
                         .setId(sessionId)
-                        .setUsername(username))
-                        .setColor(colorService.generateColor());
+                        .setUsername(username)
+                        .setColor(colorService.generateColor()));
         repository.save(session);
     }
 
