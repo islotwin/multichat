@@ -39,8 +39,11 @@ public class SessionController {
         return messageRepository.findAllByChatRoom(name, pageable)
                 .map(m -> {
                     val translation = translateService.translate(m, session);
-                    val username = sessionRepository.findById(m.getSessionId())
+                    val publisher = sessionRepository.findById(m.getSessionId());
+                    val username = publisher
                             .map(SessionEntity::getUsername)
+                            .orElse("");
+                    val color = publisher.map(SessionEntity::getColor)
                             .orElse("");
                     return new MessageDetailsDto(m.getText(), m.getTimestamp())
                             .setId(m.getId())
@@ -48,7 +51,7 @@ public class SessionController {
                             .setTranslatedText(translation)
                             .setOriginLanguage(m.getLanguage())
                             .setFrom(m.getSessionId())
-                            .setColor(session.getColor())
+                            .setColor(color)
                             .setOut(sessionId.equals(m.getSessionId()));
                 });
     }
