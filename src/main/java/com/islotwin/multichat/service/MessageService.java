@@ -60,7 +60,8 @@ public class MessageService {
                         .setTitle(chatRoom)
                         .setBody(payload.getTranslatedText())
                         .setPayload(new NotificationDto.Payload(chatRoom)))
-                .exchange();
+                .exchange()
+                .subscribe();
     }
 
     private MessageDetailsDto createMessage(final SessionEntity subscriber, final MessageEntity message, final SessionEntity publisher) {
