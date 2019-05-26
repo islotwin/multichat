@@ -3,6 +3,7 @@ package com.islotwin.multichat.web;
 import com.google.cloud.translate.Language;
 import com.islotwin.multichat.domain.LanguageDto;
 import com.islotwin.multichat.domain.MessageDetailsDto;
+import com.islotwin.multichat.domain.TokenDto;
 import com.islotwin.multichat.domain.UsernameDto;
 import com.islotwin.multichat.model.message.MessageRepository;
 import com.islotwin.multichat.model.session.ChatRoom;
@@ -66,7 +67,7 @@ public class SessionController {
         return chatRoom;
     }
 
-    @PutMapping("/users/{session}")
+    @PutMapping("/users/{session}/username")
     @Transactional
     public UsernameDto changeUsername(@PathVariable("session") final String sessionId, @RequestBody UsernameDto username) {
         val user = sessionRepository.findById(sessionId)
@@ -74,6 +75,16 @@ public class SessionController {
                 .orElseThrow(() -> new RuntimeException("Session " + sessionId + " not found."));
         sessionRepository.save(user);
         return username;
+    }
+
+    @PutMapping("/users/{session}/token")
+    @Transactional
+    public TokenDto changeToken(@PathVariable("session") final String sessionId, @RequestBody TokenDto token) {
+        val user = sessionRepository.findById(sessionId)
+                .map(s -> s.setToken(token.getToken()))
+                .orElseThrow(() -> new RuntimeException("Session " + sessionId + " not found."));
+        sessionRepository.save(user);
+        return token;
     }
 
     private ChatRoom setLanguage(final SessionEntity session, final String chatRoom, final String language) {

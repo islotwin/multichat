@@ -25,7 +25,8 @@ public class TranslateService {
     @Transactional
     public String translate(final MessageEntity message, final SessionEntity session) {
         val translateTo = session.getChatRooms().stream()
-                .filter(s -> s.getName().equals(message.getChatRoom())).findAny()
+                .filter(s -> s.getName().equals(message.getChatRoom()))
+                .findAny()
                 .map(ChatRoom::getLanguage)
                 .orElse(message.getLanguage());
         return getTranslation(message, translateTo)

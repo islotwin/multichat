@@ -9,10 +9,12 @@ import org.springframework.data.annotation.Id;
 @Getter
 @Setter
 @ToString
-@EqualsAndHashCode(exclude = "language")
+@EqualsAndHashCode(exclude = {"language", "isActive"})
 public class ChatRoom {
     @Id
     private final String name;
 
     private String language;
+
+    private boolean isActive = false;
 }

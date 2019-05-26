@@ -56,7 +56,7 @@ public class WebSocketListener {
                 .orElse(new SessionEntity()
                         .setId(sessionId)
                         .setUsername(username));
-        session.addChatRoom(destination);
+        session.activateChatRoom(destination);
         repository.save(session);
     }
 
@@ -72,7 +72,7 @@ public class WebSocketListener {
                 .flatMap(repository::findById)
                 .orElseThrow(() -> new RuntimeException("Session " + sessionId + " not found."));
 
-        session.deleteChatRoom(destination);
+        session.deactivateChatRoom(destination);
         repository.save(session);
     }
 
@@ -87,7 +87,7 @@ public class WebSocketListener {
                 .flatMap(repository::findById)
                 .orElseThrow(() -> new RuntimeException("Session " + sessionId + " not found."));
 
-        session.deleteChatRooms();
+        session.deactivateChatRooms();
         repository.save(session);
     }
 

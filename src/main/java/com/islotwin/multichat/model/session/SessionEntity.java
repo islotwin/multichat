@@ -3,6 +3,7 @@ package com.islotwin.multichat.model.session;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
+import lombok.val;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -22,22 +23,31 @@ public class SessionEntity {
 
     private String color;
 
+    private String token;
+
     private Set<ChatRoom> chatRooms = new HashSet<>();
 
-    public void addChatRoom(final String chatRoom) {
-        chatRooms.add(new ChatRoom(chatRoom));
+    public void activateChatRoom(final String chatRoom) {
+        chatRooms.stream()
+                .filter(c -> c.getName().equals(chatRoom))
+                .findAny()
+                .orElseGet(() -> {
+                    val chat = new ChatRoom(chatRoom);
+                    chatRooms.add(chat);
+                    return chat;
+                })
+                .setActive(true);
     }
 
-    public void addChatRoom(final String chatRoom, final String language) {
-        chatRooms.add(new ChatRoom(chatRoom).setLanguage(language));
+    public void deactivateChatRoom(final String chatRoom) {
+        chatRooms.stream()
+            .filter(c -> c.getName().equals(chatRoom))
+            .findAny()
+            .ifPresent(c -> c.setActive(false));
     }
 
-    public void deleteChatRoom(final String chatRoom) {
-        chatRooms.remove(new ChatRoom(chatRoom));
-    }
-
-    public void deleteChatRooms() {
-        chatRooms.clear();
+    public void deactivateChatRooms() {
+        chatRooms.forEach(c -> c.setActive(false));
     }
 
 }
