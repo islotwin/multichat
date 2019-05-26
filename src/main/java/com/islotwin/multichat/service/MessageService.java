@@ -42,9 +42,9 @@ public class MessageService {
             val payload = createMessage(s, message, publisher);
             if (hasActiveSubscription(s, chatRoom)) {
                 messagingTemplate.convertAndSendToUser(s.getId(), prefix + "/" + chatRoom, payload, createResponseHeaders(s.getId()));
-            }
-            if(s.getToken() != null && !s.getToken().isEmpty()) {
-                sendNotification(s, chatRoom, payload);
+                if(s.getToken() != null && !s.getToken().isEmpty()) {
+                    sendNotification(s, chatRoom, payload);
+                }
             }
         });
     }

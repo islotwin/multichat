@@ -16,5 +16,6 @@ public class ChatRoom {
 
     private String language;
 
+//    keep isActive for future (ie with support for logged users), for now adding and deleting chat rooms would be sufficient
     private boolean isActive = false;
 }
