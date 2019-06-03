@@ -9,7 +9,6 @@ import com.islotwin.multichat.model.session.ChatRoom;
 import com.islotwin.multichat.model.session.SessionEntity;
 import lombok.*;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -23,20 +22,13 @@ import java.util.Optional;
 
 @Service
 @Slf4j
+@RequiredArgsConstructor
 public class TranslateService {
 
     private final Translate translate;
     private final MessageRepository messageRepository;
     private final WebClient webClient;
-    private final String deeplAuthKey;
-
-    public TranslateService(final Translate translate, final MessageRepository messageRepository,
-                            final WebClient webClient, @Value("${deepl.auth.key}") final String deeplAuthKey) {
-        this.translate = translate;
-        this.messageRepository = messageRepository;
-        this.webClient = webClient;
-        this.deeplAuthKey = deeplAuthKey;
-    }
+    private final String deeplAuthKey = "62a22374-2040-ade1-2c33-c2d7b815f365";
 
     @Transactional
     public TranslatedMessage translate(final MessageEntity message, final SessionEntity session) {
