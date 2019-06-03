@@ -23,6 +23,8 @@ public class MessageDetailsDto extends MessageDto {
 
     private String translatedText;
 
+    private String translatedTextDeepl;
+
     private String originLanguage;
 
     private String color;

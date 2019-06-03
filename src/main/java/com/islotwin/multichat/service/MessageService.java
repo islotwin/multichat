@@ -72,7 +72,8 @@ public class MessageService {
                 .setId(message.getId())
                 .setUsername(username)
                 .setOriginLanguage(message.getLanguage())
-                .setTranslatedText(translation)
+                .setTranslatedText(translation.getText())
+                .setTranslatedTextDeepl(translation.getTextDeepl())
                 .setFrom(message.getSessionId())
                 .setColor(color)
                 .setOut(message.getSessionId().equals(subscriber.getId()));

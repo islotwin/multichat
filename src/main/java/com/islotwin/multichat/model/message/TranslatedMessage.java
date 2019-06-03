@@ -13,4 +13,6 @@ public class TranslatedMessage {
 
     private String text;
 
+    private String textDeepl = "";
+
 }
